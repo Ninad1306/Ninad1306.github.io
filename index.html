@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninad Parikh | Graph ML Researcher at IIT Bombay</title>
+    <meta name="description"
+        content="Ninad Parikh is a researcher in Graph Machine Learning at IIT Bombay, with prior industry experience as a software developer.">
+    <meta name="theme-color" content="#f4f7fb">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+:root {
+    --bg: #f4f7fb;
+    --bg-alt: #e9eef7;
+    --surface: #ffffff;
+    --ink: #14213d;
+    --ink-soft: #4a5775;
+    --line: #d5dcea;
+    --accent: #2b50d8;
+    --accent-ink: #ffffff;
+    --accent-soft: #dfe6fb;
+    --node: 43, 80, 216;
+    --ridge-1: #2b50d8;
+    --ridge-2: #6f89e8;
+    --ridge-3: #b9c6f3;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --header-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0d1426;
+        --bg-alt: #121b33;
+        --surface: #172142;
+        --ink: #e8edf9;
+        --ink-soft: #a6b2d0;
+        --line: #26325a;
+        --accent: #8aa4ff;
+        --accent-ink: #0d1426;
+        --accent-soft: #1f2c58;
+        --node: 138, 164, 255;
+        --ridge-1: #8aa4ff;
+        --ridge-2: #4b63b8;
+        --ridge-3: #2a3a74;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 8px);
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--display);
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.015em;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.skip {
+    position: absolute;
+    left: 12px;
+    top: -60px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 8px 14px;
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.skip:focus {
+    top: 12px;
+}
+
+.wrap {
+    width: min(1120px, 100% - 48px);
+    margin-inline: auto;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+    width: min(1120px, 100% - 48px);
+    margin-inline: auto;
+    min-height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.brand {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+    display: none;
+}
+
+.nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav a:hover {
+    background: var(--accent-soft);
+    color: var(--ink);
+}
+
+.nav a.active {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(56px, 9vw, 112px) 0;
+}
+
+#graph-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: clamp(32px, 6vw, 80px);
+}
+
+.hero h1 {
+    font-size: clamp(2.8rem, 7vw, 5.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    margin-bottom: 24px;
+}
+
+.lede {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.5;
+    max-width: 34em;
+}
+
+.affil {
+    color: var(--ink-soft);
+    max-width: 36em;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 11px 20px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.97rem;
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+}
+
+.btn:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+}
+
+.btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+}
+
+.portrait {
+    margin: 0;
+    justify-self: center;
+    position: relative;
+}
+
+.portrait::before {
+    content: "";
+    position: absolute;
+    inset: 14px -14px -14px 14px;
+    border: 2px solid var(--accent);
+    border-radius: 28px;
+    opacity: 0.55;
+}
+
+.portrait img {
+    position: relative;
+    display: block;
+    width: min(340px, 100%);
+    height: auto;
+    aspect-ratio: 412 / 530;
+    object-fit: cover;
+    border-radius: 28px;
+    background: var(--surface);
+}
+
+/* ---------- Sections ---------- */
+.section {
+    padding: clamp(64px, 9vw, 112px) 0;
+}
+
+.section.alt {
+    background: var(--bg-alt);
+}
+
+.section h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 32px;
+}
+
+.section-intro {
+    color: var(--ink-soft);
+    margin-top: -16px;
+    margin-bottom: 40px;
+}
+
+.subhead {
+    font-size: 1.35rem;
+    margin: 56px 0 20px;
+}
+
+.prose p {
+    max-width: 66ch;
+}
+
+.prose p:last-child {
+    margin-bottom: 0;
+}
+
+/* About */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: start;
+}
+
+.facts {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 8px 24px;
+}
+
+.facts div {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.facts div:last-child {
+    border-bottom: 0;
+}
+
+.facts dt {
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    margin-bottom: 2px;
+}
+
+.facts dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Cards */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+}
+
+.card h4 a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.card h4 a:hover {
+    color: var(--accent);
+}
+
+.card p {
+    color: var(--ink-soft);
+}
+
+.card .log {
+    margin-top: 8px;
+}
+
+.card .link {
+    margin-top: auto;
+    font-weight: 600;
+}
+
+/* Experience */
+.job {
+    display: grid;
+    grid-template-columns: 0.8fr 1.6fr;
+    gap: clamp(24px, 5vw, 64px);
+    padding-top: 32px;
+    border-top: 1.5px solid var(--ink);
+}
+
+.job-meta h3 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.job-meta h3 a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.job-meta h3 a:hover {
+    color: var(--accent);
+}
+
+.job-meta p {
+    margin: 0;
+}
+
+.job-meta .dates {
+    color: var(--ink-soft);
+}
+
+/* Achievements */
+.award {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+}
+
+.award .rank {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+    line-height: 1.1;
+}
+
+.award p:last-child {
+    margin: 0;
+    color: var(--ink-soft);
+}
+
+/* Hobbies */
+.log {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.log li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.log li span:last-child {
+    color: var(--ink-soft);
+}
+
+/* Contact */
+.contact {
+    background: var(--ink);
+    color: var(--bg);
+    padding: clamp(64px, 9vw, 104px) 0 40px;
+}
+
+.contact h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 16px;
+}
+
+.contact-lede {
+    max-width: 40em;
+    opacity: 0.85;
+}
+
+.contact .btn {
+    background: transparent;
+    color: var(--bg);
+    border-color: color-mix(in srgb, var(--bg) 35%, transparent);
+}
+
+.contact .btn:hover {
+    border-color: var(--bg);
+}
+
+.contact .btn.primary {
+    background: var(--bg);
+    color: var(--ink);
+    border-color: var(--bg);
+}
+
+.contact :focus-visible {
+    outline-color: var(--bg);
+}
+
+.fine {
+    margin: 56px 0 0;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+    .hero-grid,
+    .about-grid,
+    .job,
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .portrait {
+        order: -1;
+        justify-self: start;
+        margin-right: 14px;
+    }
+
+    .portrait img {
+        width: min(240px, 70vw);
+    }
+
+    :root {
+        --header-h: 104px;
+    }
+
+    .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding-top: 10px;
+    }
+
+    .nav {
+        padding-bottom: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#about">Skip to content</a>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="#top" aria-label="Back to top">Ninad Parikh</a>
+            <nav class="nav" aria-label="Sections">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#hobbies">Hobbies</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <!-- HERO -->
+        <section class="hero">
+            <canvas id="graph-bg" aria-hidden="true"></canvas>
+            <div class="wrap hero-grid">
+                <div class="hero-text">
+                    <h1>Ninad Parikh</h1>
+                    <p class="lede">I am a researcher in Graph Machine Learning who likes ideas that can be measured,
+                        reproduced and shipped. Before research, I spent over a year building production software.</p>
+                    <p class="affil">Graph Machine Learning at the <a href="https://www.cse.iitb.ac.in/" target="_blank"
+                            rel="noopener">Department of Computer Science and Engineering</a>, <a
+                            href="https://www.iitb.ac.in/" target="_blank" rel="noopener">IIT Bombay</a>.</p>
+                    <div class="actions">
+                        <a class="btn primary" href="./Resume.pdf" target="_blank" rel="noopener">View resume</a>
+                        <a class="btn" href="#projects">See my projects</a>
+                        <a class="btn" href="https://github.com/Ninad1306" target="_blank" rel="noopener">GitHub</a>
+                        <a class="btn" href="https://linkedin.com/in/ninad-parikh-66849a232" target="_blank"
+                            rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+                <figure class="portrait">
+                    <img src="./Ninad.jpg" alt="Portrait of Ninad Parikh" width="412" height="530">
+                </figure>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="section">
+            <div class="wrap">
+                <h2>About</h2>
+                <div class="about-grid">
+                    <div class="prose">
+                        <p>I am a student at <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener">Indian
+                                Institute of Technology, Bombay</a>, enrolled in the MS by Research program in the <a
+                                href="https://www.cse.iitb.ac.in/~ml/" target="_blank" rel="noopener">Intelligent
+                                Systems</a> stream under the <a href="https://www.cse.iitb.ac.in/" target="_blank"
+                                rel="noopener">Department of Computer Science and Engineering</a>.</p>
+                        <p>My research is in Graph Machine Learning, under the guidance of <a
+                                href="https://abir-de.github.io/" target="_blank" rel="noopener">Prof. Abir De</a>.
+                            Before returning to research I spent over a year building production software, which still
+                            shapes how I think: I like ideas that can be measured, reproduced and shipped.</p>
+                    </div>
+                    <dl class="facts">
+                        <div>
+                            <dt>Institute</dt>
+                            <dd>IIT Bombay</dd>
+                        </div>
+                        <div>
+                            <dt>Program</dt>
+                            <dd>MS by Research, Intelligent Systems</dd>
+                        </div>
+                        <div>
+                            <dt>Advisor</dt>
+                            <dd>Prof. Abir De</dd>
+                        </div>
+                        <div>
+                            <dt>Focus</dt>
+                            <dd>Graph Machine Learning</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEARCH -->
+        <section id="projects" class="section alt">
+            <div class="wrap">
+                <h2>Projects</h2>
+                <div class="grid-2">
+                    <article class="card">
+                        <h4><a href="./Rnd1.pdf" target="_blank" rel="noopener">Evaluation Frameworks for Catastrophic
+                                Forgetting in LLM Pretraining</a></h4>
+                        <p>Investigated the stability-plasticity dilemma in LLMs, where sequential training causes
+                            gradient conflicts that overwrite earlier knowledge. Evaluated degradation with Backward
+                            Transfer (BWT) for global retention and MICA for class level accuracy tracking across task
+                            transitions, and studied subset selection as a way to balance old knowledge against new
+                            tasks.</p>
+                        <a class="link" href="./Rnd1.pdf" target="_blank" rel="noopener">Read the report</a>
+                    </article>
+                    <article class="card">
+                        <h4><a href="https://github.com/Ninad1306/Rapid-KNN" target="_blank" rel="noopener">Rapid
+                                KNN</a></h4>
+                        <p>An optimized K nearest neighbors algorithm that uses sampling to cut computational overhead,
+                            with PyNNDescent integrated for approximate nearest neighbor indexing. It scales better and
+                            has lower complexity than traditional KNN on large, high dimensional datasets.</p>
+                        <a class="link" href="https://github.com/Ninad1306/Rapid-KNN" target="_blank"
+                            rel="noopener">View on GitHub</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="section">
+            <div class="wrap">
+                <h2>Experience</h2>
+                <article class="job">
+                    <div class="job-meta">
+                        <h3><a href="https://www.resilient.tech/" target="_blank" rel="noopener">Resilient Software
+                                Services</a></h3>
+                        <p>Software Developer</p>
+                        <p class="dates">Dec 2023 to Apr 2025</p>
+                    </div>
+                    <div class="prose">
+                        <p>I worked across the full life of client projects: understanding requirements, designing
+                            processes that give users a good experience, writing clean and efficient code, configuring
+                            and customizing software, contributing to open source, running deployments and leading
+                            training sessions.</p>
+                        <p>I led the integration of the government portal's GST Invoice Management System with ERPNext.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+        <section id="achievements" class="section alt">
+            <div class="wrap">
+                <h2>Achievements</h2>
+                <div class="grid-2">
+                    <div class="award">
+                        <p class="rank">AIR 342</p>
+                        <p>Graduate Aptitude Test in Engineering 2025, out of approximately 1,75,000 students.</p>
+                    </div>
+                    <div class="award">
+                        <p class="rank">Rank 233</p>
+                        <p>GSHSEB Examination 2020, out of approximately 50,000 students.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOBBIES -->
+        <section id="hobbies" class="section">
+            <div class="wrap">
+                <h2>Hobbies</h2>
+                <p class="section-intro">I spend my free time on the field and on the trail.</p>
+
+                <div class="grid-2">
+                    <article class="card">
+                        <h4>Sports</h4>
+                        <p>I enjoy playing almost any sport, but I have a special love for cricket and football.</p>
+                        <ul class="log">
+                            <li><span>Two-time finisher of the 10km run at the Vadodara Marathon</span><span></span></li>
+                            <li><span>Played competitively for the Motibaug Cricket Club</span><span></span></li>
+                            <li><span>Trained and competed with the Baroda Football Academy</span><span></span></li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <h4>Hiking</h4>
+                        <p>I like exploring new places on foot. My toughest so far is the Chanderi hills trek, 12 km in
+                            total and known as the most difficult trek in Maharashtra.</p>
+                        <ul class="log">
+                            <li><span>Chanderi Hills</span><span>12 km</span></li>
+                            <li><span>Vaishnodevi Hills</span><span>15 km</span></li>
+                            <li><span>Girnar Hills</span><span>10,000 steps</span></li>
+                            <li><span>Pavagadh Hills</span><span>1,000 steps</span></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CONTACT -->
+    <footer id="contact" class="contact">
+        <div class="wrap">
+            <h2>Contact</h2>
+            <p class="contact-lede">If you work on graph machine learning or anything nearby, I would be glad to hear
+                from you.</p>
+            <div class="actions">
+                <a class="btn primary" href="mailto:25m2103@iitb.ac.in">25m2103@iitb.ac.in</a>
+                <a class="btn" href="https://github.com/Ninad1306" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn" href="https://linkedin.com/in/ninad-parikh-66849a232" target="_blank"
+                    rel="noopener">LinkedIn</a>
+                <a class="btn" href="./Resume.pdf" target="_blank" rel="noopener">Resume</a>
+            </div>
+            <p class="fine">&copy; 2026 Ninad Parikh</p>
+        </div>
+    </footer>
+
+    <script>
+(function () {
+    "use strict";
+
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---------- Highlight the nav button for the section in view ---------- */
+    var links = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+    var targets = links
+        .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+        .filter(Boolean);
+
+    function setActive() {
+        var offset = window.innerHeight * 0.35;
+        var current = null;
+        targets.forEach(function (el) {
+            if (el.getBoundingClientRect().top - offset <= 0) current = el;
+        });
+        // At the very bottom of the page, the last section (Contact) wins
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) {
+            current = targets[targets.length - 1];
+        }
+        links.forEach(function (a) {
+            var on = current && a.getAttribute("href") === "#" + current.id;
+            a.classList.toggle("active", !!on);
+            if (on) a.setAttribute("aria-current", "true");
+            else a.removeAttribute("aria-current");
+        });
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () {
+            setActive();
+            ticking = false;
+        });
+    }, { passive: true });
+    window.addEventListener("resize", setActive);
+    setActive();
+
+    /* ---------- Graph background in the hero ---------- */
+    var canvas = document.getElementById("graph-bg");
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
+    var hero = canvas.parentElement;
+
+    var nodes = [];
+    var width = 0;
+    var height = 0;
+    var dpr = 1;
+    var mouse = { x: -9999, y: -9999 };
+    var rafId = null;
+    var visible = true;
+    var linkDist = 150;
+
+    function nodeColor() {
+        return getComputedStyle(document.documentElement).getPropertyValue("--node").trim() || "43, 80, 216";
+    }
+
+    function resize() {
+        var rect = hero.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = rect.width;
+        height = rect.height;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        var count = Math.max(24, Math.min(70, Math.round((width * height) / 14000)));
+        linkDist = width < 700 ? 110 : 150;
+        nodes = [];
+        for (var i = 0; i < count; i++) {
+            nodes.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.25,
+                vy: (Math.random() - 0.5) * 0.25,
+                r: 1.6 + Math.random() * 1.8
+            });
+        }
+        draw();
+    }
+
+    function draw() {
+        var rgb = nodeColor();
+        ctx.clearRect(0, 0, width, height);
+
+        for (var i = 0; i < nodes.length; i++) {
+            var a = nodes[i];
+            for (var j = i + 1; j < nodes.length; j++) {
+                var b = nodes[j];
+                var dx = a.x - b.x;
+                var dy = a.y - b.y;
+                var d = Math.sqrt(dx * dx + dy * dy);
+                if (d < linkDist) {
+                    var alpha = (1 - d / linkDist) * 0.22;
+                    // Edges near the pointer light up
+                    var mx = (a.x + b.x) / 2 - mouse.x;
+                    var my = (a.y + b.y) / 2 - mouse.y;
+                    var md = Math.sqrt(mx * mx + my * my);
+                    if (md < 160) alpha += (1 - md / 160) * 0.35;
+                    ctx.strokeStyle = "rgba(" + rgb + "," + alpha.toFixed(3) + ")";
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        for (var k = 0; k < nodes.length; k++) {
+            var n = nodes[k];
+            ctx.fillStyle = "rgba(" + rgb + ",0.45)";
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function step() {
+        for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > width) n.vx *= -1;
+            if (n.y < 0 || n.y > height) n.vy *= -1;
+        }
+        draw();
+        rafId = visible ? window.requestAnimationFrame(step) : null;
+    }
+
+    function start() {
+        if (reduceMotion || rafId) return;
+        rafId = window.requestAnimationFrame(step);
+    }
+
+    hero.addEventListener("pointermove", function (e) {
+        var rect = hero.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener("pointerleave", function () {
+        mouse.x = mouse.y = -9999;
+    });
+
+    if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+            visible = entries[0].isIntersecting;
+            if (visible) start();
+        }).observe(hero);
+    }
+
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 150);
+    });
+
+    resize();
+    start();
+})();
+    </script>
+</body>
+
+</html>
